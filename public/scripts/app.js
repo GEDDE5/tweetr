@@ -51,16 +51,12 @@ const data = [
 ];
 
 $(document).ready( () => {
-
   function escape(str) {
     let p = $('<p>').text(str);
     return p[0].innerHTML;
   }
-
   function createTweetElement(tweet) {
-
     let created_at = new Date(tweet.created_at).toString().split(' ').slice(0, 4).join(' ');
-
     let header = '<header>' +
                     '<img src="' + escape(tweet.user.avatars.small) + '" />' +
                     '<h1>' + escape(tweet.user.name) + '</h1>' +
@@ -71,19 +67,13 @@ $(document).ready( () => {
                     '<i class="fa fa-flag" aria-hidden="true"></i>' +
                     '<i class="fa fa-retweet" aria-hidden="true"></i>' +
                     '<i class="fa fa-heart" aria-hidden="true"></i>';
-
     let article = $('<article>').addClass('tweet').append(header, content, footer);
-
     return article;
   }
-
   function renderTweets(tweets) {
     for(tweet of tweets) {
       $('.tweets').append(createTweetElement(tweet));
     }
   }
-
   renderTweets(data);
-  // let $tweet = createTweetElement(tweetData);
-  // $('.tweets').append($tweet);
 });
