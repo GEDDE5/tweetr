@@ -1,0 +1,47 @@
+article.tweet {
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  margin-top: 50px;
+  opacity: 0.8;
+  text-align: left;
+}
+
+article.tweet:hover {
+  opacity: 1;
+}
+
+article.tweet footer {
+  border-top: 1px solid #D3D3D3;
+  padding: 0.7em;
+}
+
+article.tweet h1 {
+  float: left;
+  font-size: 1.6em;
+  /*line-height: 30px;*/
+  margin: 0;
+  padding: 2px 0 0 10px;
+}
+
+article.tweet header {
+  background: #eee;
+  height: 80px;
+  padding: 0.6em;
+}
+
+article.tweet header img {
+  border-radius: 5px;
+  float: left;
+  height: 100%;
+}
+article.tweet header span {
+  float: right;
+  padding: 8px 0 0 0;
+}
+
+article.tweet p {
+  line-height: 60px;
+  height: 80px;
+  margin: 0;
+  padding: 10px;
+}
