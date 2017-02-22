@@ -6,7 +6,7 @@ $(document).ready(function() {
     let input = form.find('textarea');
     let error = form.find('p');
 
-    // removes error elemetn if present
+    // removes error element if present
     if(error.length) {
       error.remove();
     }
@@ -16,9 +16,7 @@ $(document).ready(function() {
     } else if(140 - input.val().length < 0) {
       $(this).after('<p>Error: Input exceeds 140 characters</p>');
     } else {
-      $.post('tweets', input.serialize(), function(res) {
-        console.log(res);
-      });
+      $.post('tweets', input.serialize());
     }
 
   });
