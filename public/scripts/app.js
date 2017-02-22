@@ -7,11 +7,15 @@
 $(document).ready( () => {
 
   // handles toggling of new-tweet section
-  $('#nav-bar .compose').on('click', function() {
-    $('section.new-tweet').slideToggle('fast', function() {
-      $(this).find('textarea').focus();
+  function toggleHanlder() {
+    $('#nav-bar .compose').on('click', function() {
+      $('section.new-tweet').slideToggle('fast', function() {
+        $(this).find('textarea').focus();
+      });
     });
-  });
+  }
+
+  toggleHanlder();
 
   // use jquery's .text() to escape user-inputted strings
   function escape(str) {
