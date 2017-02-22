@@ -6,6 +6,7 @@
 
 $(document).ready( () => {
 
+
   // handles toggling of new-tweet section
   function toggleHanlder() {
     $('#nav-bar .compose').on('click', function() {
@@ -22,6 +23,8 @@ $(document).ready( () => {
     let p = $('<p>').text(str);
     return p[0].innerHTML;
   }
+
+
 
   // takes in tweet object
   // returns single tweet article HTML
