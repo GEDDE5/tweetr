@@ -52,7 +52,8 @@ $(document).ready( () => {
   // GETs JSON data from /tweets route
   // passes result to renderTweets()
   function loadTweets() {
-    $.getJSON('tweets', function(tweets) {
+    $.getJSON('tweets')
+     .then(function(tweets) {
       renderTweets(tweets);
     });
   }
@@ -77,7 +78,8 @@ $(document).ready( () => {
       } else if(140 - input.val().length < 0) {
         $(this).after('<p>Error: Input exceeds 140 characters</p>');
       } else {
-        $.post('tweets', input.serialize(), function(tweet) {
+        $.post('tweets', input.serialize())
+        .then(function(tweet) {
           $('.tweets').prepend(createTweetElement(tweet));
           input.val('');
         });
