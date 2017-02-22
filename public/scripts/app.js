@@ -73,7 +73,7 @@ $(document).ready( () => {
         error.remove();
       }
 
-      if(input.val() === '') {
+      if(input.val() === '' || input.val() == null) {
         $(this).after('<p>Error: Input cannot be empty</p>');
       } else if(140 - input.val().length < 0) {
         $(this).after('<p>Error: Input exceeds 140 characters</p>');
