@@ -3,11 +3,27 @@
   color: #e8fdff;
   height: 80px;
   left: 0;
-  padding: 0 2em;
+  padding: 0 10em;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 3;
+}
+
+#nav-bar .compose {
+  background: #F4F4F4;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: #00a087;
+  float: right;
+  font-size: 1.4em;
+  margin-top: 0.35em;
+  padding: 0.8em 0.6em;
+}
+
+#nav-bar .compose:hover {
+  background: #FFF;
+  color: #000;
 }
 
 #nav-bar .header {
