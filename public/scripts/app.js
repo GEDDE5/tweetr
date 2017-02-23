@@ -68,30 +68,75 @@ $(document).ready( () => {
   loadTweets();
 
   function submitHandler() {
-    $('.new-tweet .tweet-form').on('submit', function (event) {
-      event.preventDefault();
+    const form = $('.new-tweet .tweet-form');
+    const error = form.find('.error');
+    const input = form.find('.input');
+    const button = form.find('input[type="Submit"]')
 
-      let input = $(this).find('.input');
-      let error = $(this).find('.error');
+    // posts to /tweets, displays tweet on success
+    function postForm(route, selector) {
+      $.post(route, form.serialize())
+       .then(function(tweet) {
+        $(selector).prepend(createTweetElement(tweet));
+        input.val('').focus();
+      });
+    }
 
-      // removes error element if present
-      if(error.length) {
-        error.text('');
-      }
+    // a couple of helper functions
+    const errors = {
+      exist:
+        () => {
+          if(input.val() === '' || input.val() == null || 140 - input.val().length < 0) {
+            return true;
+          }
+          return false;
+        },
+      check:
+        () => {
+         error.text('');
+         if(input.val() === '' || input.val() == null) {
+            error.text('Error: Input cannot be empty')
+          }
+         if(140 - input.val().length < 0) {
+            error.text('Error: Input exceeds 140 characters');
+         }
+         return;
+        }
+    };
 
-      if(input.val() === '' || input.val() == null) {
-        error.text('Error: Input cannot be empty');
-      } else if(140 - input.val().length < 0) {
-        error.text('Error: Input exceeds 140 characters');
-      } else {
-        $.post('tweets', $(this).serialize())
-         .then(function(tweet) {
-          $('.tweets').prepend(createTweetElement(tweet));
-          input.val('').focus();
-        });
-      }
-
+    // monitors <textarea> and displays errors accordingly
+    $(input).on('input', function(event) {
+      errors.check();
     });
+
+    // Disallows <enter> key from being pressed
+    $(input).on('keypress', function(event) {
+      if(event.key === 'Enter') {
+        event.preventDefault();
+      }
+    });
+
+    // submits form if user presses <enter> while in <textarea>
+    $(input).on('keydown', function(event) {
+      if(!errors.exist() && event.key === 'Enter') {
+        event.preventDefault();
+        postForm('tweets', '.tweets');
+      }
+    });
+
+    // ensures errors are displayed if user clicks submit button
+    $(button).on('click', function(event) {
+      errors.check();
+    });
+
+    // self-explanatory
+    $(form).on('submit', function (event){
+      event.preventDefault();
+      if(!errors.exist()) {
+        postForm('tweets', '.tweets');
+      }
+    });
+
   }
 
   submitHandler();
