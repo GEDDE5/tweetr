@@ -68,42 +68,30 @@ $(document).ready( () => {
   loadTweets();
 
   function submitHandler() {
-    const form = $('.new-tweet .tweet-form');
-    const error = form.find('.error');
-    const input = form.find('.input');
-
-    function postForm(route) {
-      $.post(route, form.serialize()).then(function(tweet) {
-        $('.tweets').prepend(createTweetElement(tweet));
-        input.val('').focus();
-      });
-    }
-
-    $(form).on('submit', function (event){
+    $('.new-tweet .tweet-form').on('submit', function (event) {
       event.preventDefault();
 
-      // clears error if present
-      if(error) {
+      let input = $(this).find('.input');
+      let error = $(this).find('.error');
+
+      // removes error element if present
+      if(error.length) {
         error.text('');
       }
+
       if(input.val() === '' || input.val() == null) {
         error.text('Error: Input cannot be empty');
       } else if(140 - input.val().length < 0) {
         error.text('Error: Input exceeds 140 characters');
       } else {
-        postForm('tweets');
+        $.post('tweets', $(this).serialize())
+         .then(function(tweet) {
+          $('.tweets').prepend(createTweetElement(tweet));
+          input.val('').focus();
+        });
       }
 
     });
-
-    // submits form if user presses enter while in <textarea>
-    $(input).on('keyup', function(event) {
-      event.preventDefault();
-      if(event.key === 'Enter') {
-        postForm('tweets')
-      }
-    });
-
   }
 
   submitHandler();
