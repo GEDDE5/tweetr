@@ -17,11 +17,11 @@ const DataHelpers = require("./lib/data-helpers.js");
 const tweetsRoutes = require("./routes/tweets");
 
 MongoClient.connect(MONGODB_URI, (err, db) => {
-  if(!err) {
+  if(err) {
+    throw err;
+  } else {
     console.log(`Connected to ${MONGODB_URI}`);
     app.use('/tweets', tweetsRoutes(DataHelpers(db)));
-  } else {
-    throw err;
   }
 });
 
