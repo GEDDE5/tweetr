@@ -22,7 +22,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   }
   console.log(`Connected to ${MONGODB_URI}`);
   app.use('/tweets', tweetsRoutes(DataHelpers(db)));
-  db.close();
+  // db.close(); breaks the app; exclude it
 });
 
 app.listen(PORT, () => {
