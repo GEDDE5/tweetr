@@ -94,10 +94,14 @@ $(document).ready( () => {
 
     // a couple of helper functions
     const errors = {
-      conditions: [input.val() === null, $.trim(input.val()) === '', 140 - input.val().length < 0],
       exist:
         () => {
-          for(c of errors.conditions){
+          conditions = [
+            input.val() === null,
+            140 - input.val().length < 0,
+            $.trim(input.val()) === ''
+          ];
+          for(c of conditions){
             if(c) {
               return true;
             }
@@ -107,7 +111,7 @@ $(document).ready( () => {
       check:
         () => {
          error.text('');
-         if($.trim(input.val()) === '' || input.val() == null) {
+         if(input.val() === '' || input.val() == null) {
             error.text('Error: Input cannot be empty')
           }
          if(140 - input.val().length < 0) {
