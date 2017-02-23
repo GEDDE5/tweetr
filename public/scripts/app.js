@@ -86,7 +86,7 @@ $(document).ready( () => {
         $(this).after('<p>Error: Input exceeds 140 characters</p>');
       } else {
         $.post('tweets', input.serialize())
-        .then(function(tweet) {
+         .then(function(tweet) {
           $('.tweets').prepend(createTweetElement(tweet));
           input.val('');
         });
