@@ -68,14 +68,15 @@ $(document).ready( () => {
   loadTweets();
 
   function submitHandler() {
-    $('.new-tweet .tweet-form').on('submit', function (event) {
+    const form = $('.new-tweet .tweet-form');
+    $(form).on('submit', function (event){
       event.preventDefault();
 
       let input = $(this).find('.input');
       let error = $(this).find('.error');
 
-      // removes error element if present
-      if(error.length) {
+      // clears error if present
+      if(error) {
         error.text('');
       }
 
@@ -92,6 +93,15 @@ $(document).ready( () => {
       }
 
     });
+
+    // submits form if user presses enter while in <textarea>
+    $('.new-tweet .input').on('keyup', function(event) {
+      event.preventDefault();
+      if(event.key === 'Enter') {
+        form.submit();
+      }
+    });
+
   }
 
   submitHandler();
