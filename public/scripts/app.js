@@ -68,27 +68,26 @@ $(document).ready( () => {
   loadTweets();
 
   function submitHandler() {
-    $('.new-tweet form').on('submit', function (event) {
+    $('.new-tweet .tweet-form').on('submit', function (event) {
       event.preventDefault();
 
-      let form = $(this).closest('form');
-      let input = form.find('textarea');
-      let error = form.find('p');
+      let input = $(this).find('.input');
+      let error = $(this).find('.error');
 
       // removes error element if present
       if(error.length) {
-        error.remove();
+        error.text('');
       }
 
       if(input.val() === '' || input.val() == null) {
-        $(this).after('<p>Error: Input cannot be empty</p>');
+        error.text('Error: Input cannot be empty');
       } else if(140 - input.val().length < 0) {
-        $(this).after('<p>Error: Input exceeds 140 characters</p>');
+        error.text('Error: Input exceeds 140 characters');
       } else {
-        $.post('tweets', input.serialize())
+        $.post('tweets', $(this).serialize())
          .then(function(tweet) {
           $('.tweets').prepend(createTweetElement(tweet));
-          input.val('');
+          input.val('').focus();
         });
       }
 
