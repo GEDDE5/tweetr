@@ -6,7 +6,6 @@
 
 $(document).ready( () => {
 
-
   // handles toggling of new-tweet section
   function toggleHanlder() {
     $('#nav-bar .compose').on('click', function() {
@@ -23,8 +22,6 @@ $(document).ready( () => {
     let p = $('<p>').text(str);
     return p[0].innerHTML;
   }
-
-
 
   // takes in tweet object
   // returns single tweet article HTML
@@ -105,19 +102,19 @@ $(document).ready( () => {
     };
 
     // monitors <textarea> and displays errors accordingly
-    $(input).on('input', function(event) {
+    $(input).on('input', () => {
       errors.check();
     });
 
     // Disallows <enter> key from being pressed
-    $(input).on('keypress', function(event) {
+    $(input).on('keypress', event => {
       if(event.key === 'Enter') {
         event.preventDefault();
       }
     });
 
     // submits form if user presses <enter> while in <textarea>
-    $(input).on('keydown', function(event) {
+    $(input).on('keydown', event => {
       if(!errors.exist() && event.key === 'Enter') {
         event.preventDefault();
         postForm('tweets', '.tweets');
@@ -125,12 +122,12 @@ $(document).ready( () => {
     });
 
     // ensures errors are displayed if user clicks submit button
-    $(button).on('click', function(event) {
+    $(button).on('click', () => {
       errors.check();
     });
 
     // self-explanatory
-    $(form).on('submit', function (event){
+    $(form).on('submit', event => {
       event.preventDefault();
       if(!errors.exist()) {
         postForm('tweets', '.tweets');
