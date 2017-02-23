@@ -17,30 +17,43 @@ $(document).ready( () => {
 
   toggleHanlder();
 
-  // use jquery's .text() to escape user-inputted strings
-  function escape(str) {
-    let p = $('<p>').text(str);
-    return p[0].innerHTML;
-  }
+
 
   // takes in tweet object
   // returns single tweet article HTML
   function createTweetElement(tweet) {
-    let created_at = new Date(tweet.created_at).toString().split(' ').slice(0, 4).join(' ');
+
+    function escape(str) {
+      let p = $('<p>').text(str);
+      return p[0].innerHTML;
+    }
+    // recursion for escaping whole tweet
+    function sanitize(obj) {
+      for(let key in obj) {
+        if(obj.hasOwnProperty(key)) {
+          if(obj[key].constructor === Object) {
+            sanitize(obj[key]);
+          } else if (obj[key].constructor === String) {
+            obj[key] = escape(obj[key]);
+          }
+        }
+      }
+    }
+    sanitize(tweet);
+
+    const created_at = new Date(tweet.created_at).toString().split(' ').slice(0, 4).join(' ');
     let header = '<header>' +
-                    '<img src="' + escape(tweet.user.avatars.small) + '" />' +
-                    '<h1>' + escape(tweet.user.name) + '</h1>' +
-                    '<span>' + escape(tweet.user.handle);
-    let content = '<p>' + escape(tweet.content.text);
+                    '<img src="' + (tweet.user.avatars.small) + '" />' +
+                    '<h1>' + (tweet.user.name) + '</h1>' +
+                    '<span>' + (tweet.user.handle);
+    let content = '<p>' + (tweet.content.text);
 
     // avoid repetition via .map()
     let icons = ['flag', 'retweet', 'heart'];
     let iconHTML = icons.map(icon => {
       return '<i class="fa fa-' + icon + '" aria-hidden="true"></i>'
     }).join(' ');
-    let footer = '<footer>' +
-                    escape(created_at)  + '<span>' +
-                    iconHTML;
+    let footer = '<footer>' + (created_at)  + '<span>' + iconHTML + '</span></footer>';
     let article = $('<article>').addClass('tweet').append(header, content, footer);
     return article;
   }
@@ -81,17 +94,20 @@ $(document).ready( () => {
 
     // a couple of helper functions
     const errors = {
+      conditions: [input.val() === null, $.trim(input.val()) === '', 140 - input.val().length < 0],
       exist:
         () => {
-          if(input.val() === '' || input.val() == null || 140 - input.val().length < 0) {
-            return true;
+          for(c of errors.conditions){
+            if(c) {
+              return true;
+            }
           }
           return false;
         },
       check:
         () => {
          error.text('');
-         if(input.val() === '' || input.val() == null) {
+         if($.trim(input.val()) === '' || input.val() == null) {
             error.text('Error: Input cannot be empty')
           }
          if(140 - input.val().length < 0) {
