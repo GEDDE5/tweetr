@@ -68,7 +68,7 @@ $(document).ready( () => {
   loadTweets();
 
   function submitHandler() {
-    $('.new-tweet input[type="submit"]').on('click', function (event) {
+    $('.new-tweet form').on('submit', function (event) {
       event.preventDefault();
 
       let form = $(this).closest('form');
