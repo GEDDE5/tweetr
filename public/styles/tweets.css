@@ -57,6 +57,10 @@ article.tweet .icon {
   padding: 2px 10px 0 0;
 }
 
+article.tweet .fa-heart:hover {
+  color: red;
+}
+
 article.tweet {
   border: 1px solid #D3D3D3;
   border-radius: 5px;

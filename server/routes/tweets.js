@@ -34,7 +34,8 @@ module.exports = function(DataHelpers) {
       content: {
         text: req.body.text
       },
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      likes: 0
     };
 
     DataHelpers.saveTweet(tweet, (err) => {
@@ -44,6 +45,11 @@ module.exports = function(DataHelpers) {
         res.status(201).send(tweet);
       }
     });
+  });
+
+  tweetsRoutes.get('/:id', function (req, res) {
+    // if user GETs /tweets/:id, display individual tweet w/ given id
+    res.status(299).send(req.params.id);
   });
 
   return tweetsRoutes;
