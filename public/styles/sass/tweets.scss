@@ -1,0 +1,65 @@
+$primary-color: #D3D3D3;
+
+article.tweet {
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+  margin-top: 1em;
+  opacity: 0.8;
+  text-align: left;
+
+  footer {
+    border-top: 1px solid $primary-color;
+    padding: 0.7em;
+
+    span {
+      display: none;
+
+      i {
+        color: #00a087;
+        padding: 0 0 0 5px;
+      }
+    }
+
+    article.tweet:hover span {
+      display: block;
+      float: right;
+    }
+  }
+
+  h1 {
+    float: left;
+    font-size: 1.6em;
+    margin: 0;
+    padding: 2px 0 0 10px;
+  }
+
+  header {
+    background: #eee;
+    height: 80px;
+    padding: 0.6em;
+
+    img {
+      border-radius: 5px;
+      float: left;
+      height: 100%;
+    }
+
+    span {
+      float: right;
+      padding: 8px 0 0 0;
+    }
+
+
+  }
+
+  p {
+    height: 80px;
+    margin: 0;
+    padding: 20px 10px 20px 10px;
+  }
+
+}
+
+article.tweet:hover {
+  opacity: 1;
+}

@@ -10,7 +10,7 @@ $(document).ready( () => {
   function toggleHanlder() {
     $('#nav-bar .compose').on('click', function() {
       $('section.new-tweet').slideToggle('fast', function() {
-        $(this).find('textarea').focus();
+        $(this).find('.input').focus();
       });
     });
   }

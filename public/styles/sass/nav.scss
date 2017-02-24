@@ -1,0 +1,45 @@
+#nav-bar {
+  $primary-color: #00a087;
+  $nav-dimension: 80px;
+
+  background: $primary-color;
+  color: #e8fdff;
+  height: $nav-dimension;
+  left: 0;
+  padding: 0 10em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 3;
+
+  .compose {
+    background: #F4F4F4;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: $primary-color;
+    float: right;
+    font-size: 1.4em;
+    margin-top: 0.35em;
+    padding: 0.8em 0.6em;
+  }
+
+  .compose:hover {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  .header {
+    float: left;
+    font-size: 200%;
+    line-height: $nav-dimension;
+    padding: 0 0 0 10px;
+  }
+
+  .logo {
+    float: left;
+    height: $nav-dimension;
+    width: $nav-dimension;
+  }
+}
+
+

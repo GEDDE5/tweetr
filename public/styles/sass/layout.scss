@@ -1,0 +1,26 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/*
+ * Global layout stuff
+  */
+
+body {
+  background: #eee;
+  color: #244751;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-align: center;
+.container {
+  background: #FFF;
+  display: inline-block;
+  padding: 2em;
+  position: relative;
+  top: 80px;
+  width: 450px;
+}
+}
+
