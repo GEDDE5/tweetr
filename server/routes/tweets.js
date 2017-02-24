@@ -1,6 +1,6 @@
 "use strict";
 
-const userHelper    = require("../lib/util/user-helper")
+const userHelper    = require("../lib/util/user-helper");
 
 const express       = require('express');
 const tweetsRoutes  = express.Router();
@@ -24,7 +24,7 @@ module.exports = function(DataHelpers) {
     }
 
     if(req.body.text.length > 140) {
-      res.status(400).json({ error: 'invalid request: POST body exceeds 140 characters' })
+      res.status(400).json({ error: 'invalid request: POST body exceeds 140 characters' });
       return;
     }
 
@@ -34,7 +34,7 @@ module.exports = function(DataHelpers) {
       content: {
         text: req.body.text
       },
-      created_at: Date.now()
+      createdAt: Date.now()
     };
 
     DataHelpers.saveTweet(tweet, (err) => {
@@ -47,5 +47,4 @@ module.exports = function(DataHelpers) {
   });
 
   return tweetsRoutes;
-
-}
+};
