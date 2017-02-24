@@ -40,20 +40,35 @@ $(document).ready( () => {
     sanitize(tweet);
 
     const createdAt = new Date(tweet.createdAt).toString().split(' ').slice(0, 4).join(' ');
-    let header = '<header>' +
-                    '<img src="' + (tweet.user.avatars.small) + '" />' +
-                    '<h1>' + (tweet.user.name) + '</h1>' +
-                    '<span>' + (tweet.user.handle);
-    let content = '<p>' + (tweet.content.text);
 
-    // avoid repetition via .map()
-    let icons = ['flag', 'retweet', 'heart'];
-    let iconHTML = icons.map(icon => {
-      return '<i class="fa fa-' + icon + '" aria-hidden="true"></i>';
-    }).join(' ');
-    let footer = '<footer>' + (createdAt)  + '<span>' + iconHTML + '</span></footer>';
+    let avatar = $('<img>').addClass('avatar').attr('src', tweet.user.avatars.small);
+    let user = $('<h1>').addClass('user').text(tweet.user.name);
+    let handle = $('<p>').addClass('handle').text(tweet.user.handle);
+    let header = $('<header>').addClass('header').append(avatar, user, handle);
+
+    let content = $('<p>').addClass('body').text(tweet.content.text);
+
+    let date = $('<p>').addClass('date').text(createdAt);
+    let icon = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true');
+    let footer = $('<footer>').addClass('footer').append(date, icon);
     let article = $('<article>').addClass('tweet').append(header, content, footer);
     return article;
+
+    // let header = '<header>' +
+    //                 '<img src="' + (tweet.user.avatars.small) + '" />' +
+    //                 '<h1>' + (tweet.user.name) + '</h1>' +
+    //                 '<span>' + (tweet.user.handle);
+    // let content = '<p>' + (tweet.content.text);
+
+    // // avoid repetition via .map()
+    // let icons = ['flag', 'retweet', 'heart'];
+    // let iconHTML = icons.map(icon => {
+    //   return '<i class="fa fa-' + icon + '" aria-hidden="true"></i>';
+    // }).join(' ');
+
+    // let footer = '<footer>' + (createdAt)  + '<span>' + iconHTML + '</span></footer>';
+    // let article = $('<article>').addClass('tweet').append(header, content, footer);
+    // return article;
   }
 
   // takes in list of tweets objects

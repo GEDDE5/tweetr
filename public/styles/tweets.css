@@ -10,49 +10,55 @@ article.tweet:hover {
   opacity: 1;
 }
 
-article.tweet footer {
+article.tweet .footer {
   border-top: 1px solid #D3D3D3;
-  padding: 0.7em;
+  padding: 0.2em;
 }
 
-article.tweet footer span {
+article.tweet footer .icon {
   display: none;
 }
 
-article.tweet:hover footer span {
+article.tweet:hover footer .icon {
   display: block;
   float: right;
 }
 
-article.tweet footer span i {
+article.tweet footer .icon {
   color: #00a087;
   padding: 0 0 0 5px;
 }
 
-article.tweet h1 {
+article.tweet h1.user {
   float: left;
   font-size: 1.6em;
   margin: 0;
   padding: 2px 0 0 10px;
 }
 
-article.tweet header {
+article.tweet .date {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+article.tweet header.header {
   background: #eee;
   height: 80px;
   padding: 0.6em;
 }
 
-article.tweet header img {
+article.tweet img.avatar {
   border-radius: 5px;
   float: left;
   height: 100%;
 }
-article.tweet header span {
+article.tweet p.handle {
   float: right;
   padding: 8px 0 0 0;
 }
 
-article.tweet p {
+article.tweet p.body {
   height: 80px;
   margin: 0;
   padding: 20px 10px 20px 10px;
