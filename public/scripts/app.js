@@ -80,6 +80,7 @@ $(document).ready( () => {
     const error = form.find('.error');
     const input = form.find('.input');
     const button = form.find('input[type="Submit"]');
+    const counter = form.find('.counter');
 
     // posts to /tweets, displays tweet on success
     function postForm(route, selector) {
@@ -87,6 +88,7 @@ $(document).ready( () => {
        .then(function(tweet) {
          $(selector).prepend(createTweetElement(tweet));
          input.val('').focus();
+         counter.text(140);
        });
     }
 
