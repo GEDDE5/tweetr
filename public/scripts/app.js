@@ -17,8 +17,6 @@ $(document).ready( () => {
 
   toggleHanlder();
 
-
-
   // takes in tweet object
   // returns single tweet article HTML
   function createTweetElement(tweet) {
@@ -41,7 +39,7 @@ $(document).ready( () => {
     }
     sanitize(tweet);
 
-    const created_at = new Date(tweet.created_at).toString().split(' ').slice(0, 4).join(' ');
+    const createdAt = new Date(tweet.created_at).toString().split(' ').slice(0, 4).join(' ');
     let header = '<header>' +
                     '<img src="' + (tweet.user.avatars.small) + '" />' +
                     '<h1>' + (tweet.user.name) + '</h1>' +
@@ -51,9 +49,9 @@ $(document).ready( () => {
     // avoid repetition via .map()
     let icons = ['flag', 'retweet', 'heart'];
     let iconHTML = icons.map(icon => {
-      return '<i class="fa fa-' + icon + '" aria-hidden="true"></i>'
+      return '<i class="fa fa-' + icon + '" aria-hidden="true"></i>';
     }).join(' ');
-    let footer = '<footer>' + (created_at)  + '<span>' + iconHTML + '</span></footer>';
+    let footer = '<footer>' + (createdAt)  + '<span>' + iconHTML + '</span></footer>';
     let article = $('<article>').addClass('tweet').append(header, content, footer);
     return article;
   }
@@ -71,8 +69,8 @@ $(document).ready( () => {
   function loadTweets() {
     $.getJSON('tweets')
      .then(function(tweets) {
-      renderTweets(tweets);
-    });
+       renderTweets(tweets);
+     });
   }
 
   loadTweets();
@@ -81,15 +79,15 @@ $(document).ready( () => {
     const form = $('.new-tweet .tweet-form');
     const error = form.find('.error');
     const input = form.find('.input');
-    const button = form.find('input[type="Submit"]')
+    const button = form.find('input[type="Submit"]');
 
     // posts to /tweets, displays tweet on success
     function postForm(route, selector) {
       $.post(route, form.serialize())
        .then(function(tweet) {
-        $(selector).prepend(createTweetElement(tweet));
-        input.val('').focus();
-      });
+         $(selector).prepend(createTweetElement(tweet));
+         input.val('').focus();
+       });
     }
 
     // a couple of helper functions
@@ -110,14 +108,14 @@ $(document).ready( () => {
         },
       check:
         () => {
-         error.text('');
-         if(input.val() === '' || input.val() == null) {
-            error.text('Error: Input cannot be empty')
+          error.text('');
+          if(input.val() === '' || input.val() === null) {
+            error.text('Error: Input cannot be empty');
           }
-         if(140 - input.val().length < 0) {
+          if(140 - input.val().length < 0) {
             error.text('Error: Input exceeds 140 characters');
-         }
-         return;
+          }
+          return;
         }
     };
 
@@ -141,7 +139,7 @@ $(document).ready( () => {
       }
     });
 
-    // ensures errors are displayed if user clicks submit button
+    // ensures errors are displayed on click
     $(button).on('click', () => {
       errors.check();
     });
@@ -155,7 +153,6 @@ $(document).ready( () => {
     });
 
   }
-
   submitHandler();
 
 });
