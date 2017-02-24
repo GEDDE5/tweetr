@@ -50,7 +50,7 @@ $(document).ready( () => {
 
     let date = $('<p>').addClass('date').text(createdAt);
     let icon = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true');
-    let footer = $('<footer>').addClass('footer').append(date, icon);
+    let footer = $('<footer>').addClass('footer clearfix').append(date, icon);
     let article = $('<article>').addClass('tweet').append(header, content, footer);
     return article;
 
