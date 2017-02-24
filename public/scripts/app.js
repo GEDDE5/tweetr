@@ -50,7 +50,7 @@ $(document).ready( () => {
     let content = $('<p>').addClass('body').text(tweet.content.text);
 
     let date = $('<p>').addClass('date').text(createdAt);
-    let iHeart = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true').attr('data-liked', false);
+    let iHeart = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'false').attr('data-liked', false);
     let iFlag = $('<i>').addClass('fa fa-flag icon').attr('aria-hidden', 'true');
     let iRetweet = $('<i>').addClass('fa fa-retweet icon').attr('aria-hidden', 'true');
     let footer = $('<footer>').addClass('footer clearfix').append(date, iHeart, iFlag, iRetweet);
@@ -111,7 +111,7 @@ $(document).ready( () => {
           }
           return false;
         },
-      check:
+      monitor:
         () => {
           error.text('');
           if(input.val() === '' || input.val() === null) {
@@ -126,10 +126,10 @@ $(document).ready( () => {
 
     // monitors <textarea> and displays errors accordingly
     $(input).on('input', () => {
-      errors.check();
+      errors.monitor();
     });
 
-    // Disallows <enter> key from being pressed
+    // Disallows <enter> key from default behaviour
     $(input).on('keypress', event => {
       if(event.key === 'Enter') {
         event.preventDefault();
@@ -146,7 +146,7 @@ $(document).ready( () => {
 
     // ensures errors are displayed on click
     $(button).on('click', () => {
-      errors.check();
+      errors.monitor();
     });
 
     // self-explanatory
@@ -159,5 +159,7 @@ $(document).ready( () => {
 
   }
   submitHandler();
+
+  console.log($('.tweets'));
 
 });
