@@ -26,6 +26,7 @@ $(document).ready( () => {
       return p[0].innerHTML;
     }
     // recursion for escaping whole tweet
+    // just in case
     function sanitize(obj) {
       for(let key in obj) {
         if(obj.hasOwnProperty(key)) {
@@ -49,26 +50,13 @@ $(document).ready( () => {
     let content = $('<p>').addClass('body').text(tweet.content.text);
 
     let date = $('<p>').addClass('date').text(createdAt);
-    let icon = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true');
-    let footer = $('<footer>').addClass('footer clearfix').append(date, icon);
+    let iHeart = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true').attr('data-liked', false);
+    let iFlag = $('<i>').addClass('fa fa-flag icon').attr('aria-hidden', 'true');
+    let iRetweet = $('<i>').addClass('fa fa-retweet icon').attr('aria-hidden', 'true');
+    let footer = $('<footer>').addClass('footer clearfix').append(date, iHeart, iFlag, iRetweet);
     let article = $('<article>').addClass('tweet').append(header, content, footer);
+
     return article;
-
-    // let header = '<header>' +
-    //                 '<img src="' + (tweet.user.avatars.small) + '" />' +
-    //                 '<h1>' + (tweet.user.name) + '</h1>' +
-    //                 '<span>' + (tweet.user.handle);
-    // let content = '<p>' + (tweet.content.text);
-
-    // // avoid repetition via .map()
-    // let icons = ['flag', 'retweet', 'heart'];
-    // let iconHTML = icons.map(icon => {
-    //   return '<i class="fa fa-' + icon + '" aria-hidden="true"></i>';
-    // }).join(' ');
-
-    // let footer = '<footer>' + (createdAt)  + '<span>' + iconHTML + '</span></footer>';
-    // let article = $('<article>').addClass('tweet').append(header, content, footer);
-    // return article;
   }
 
   // takes in list of tweets objects
