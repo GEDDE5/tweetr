@@ -39,7 +39,7 @@ $(document).ready( () => {
     }
     sanitize(tweet);
 
-    const createdAt = new Date(tweet.created_at).toString().split(' ').slice(0, 4).join(' ');
+    const createdAt = new Date(tweet.createdAt).toString().split(' ').slice(0, 4).join(' ');
     let header = '<header>' +
                     '<img src="' + (tweet.user.avatars.small) + '" />' +
                     '<h1>' + (tweet.user.name) + '</h1>' +
