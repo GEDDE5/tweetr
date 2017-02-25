@@ -1,46 +1,57 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
+function timeSince(date) {
 
-$(document).ready( () => {
+  const seconds = Math.floor((new Date() - date) / 1000);
 
-  // handles toggling of new-tweet section
-  function toggleHanlder() {
-    $('#nav-bar .compose').on('click', function() {
-      $('section.new-tweet').slideToggle('fast', function() {
-        $(this).find('.input').focus();
-      });
-    });
+  let interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return `${interval} years ago`;
   }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return `${interval} months ago`;
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return `${interval} days ago`;
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return `${interval} hours ago`;
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return `${interval} minutes ago`;
+  }
+  return `${Math.floor(seconds)} seconds ago`;
+}
 
-  toggleHanlder();
+$(document).ready(function() {
 
   // takes in tweet object
-  // returns single tweet article HTML
+  // returns single tweet <article>
   function createTweetElement(tweet) {
 
-    function escape(str) {
-      let p = $('<p>').text(str);
-      return p[0].innerHTML;
-    }
+    // function escape(str) {
+    //   let p = $('<p>').text(str);
+    //   return p[0].innerHTML;
+    // }
     // some recursion for escaping whole tweet
     // just in case \ for future personal reference
-    function sanitize(obj) {
-      for(let key in obj) {
-        if(obj.hasOwnProperty(key)) {
-          if(obj[key].constructor === Object) {
-            sanitize(obj[key]);
-          } else if (obj[key].constructor === String) {
-            obj[key] = escape(obj[key]);
-          }
-        }
-      }
-    }
-    sanitize(tweet);
+    // function sanitize(obj) {
+    //   for(let key in obj) {
+    //     if(obj.hasOwnProperty(key)) {
+    //       if(obj[key].constructor === Object) {
+    //         sanitize(obj[key]);
+    //       } else if (obj[key].constructor === String) {
+    //         obj[key] = escape(obj[key]);
+    //       }
+    //     }
+    //   }
+    // }
+    // sanitize(tweet);
 
-    const createdAt = new Date(tweet.createdAt).toString().split(' ').slice(0, 4).join(' ');
+    const createdAt = timeSince(tweet.createdAt);
 
     let avatar = $('<img>').addClass('avatar').attr('src', tweet.user.avatars.small);
     let user = $('<h1>').addClass('user').text(tweet.user.name);
@@ -56,7 +67,6 @@ $(document).ready( () => {
     let footer = $('<footer>').addClass('footer clearfix').append(date, iHeart, iFlag, iRetweet);
 
     let article = $('<article>').addClass('tweet').attr('data-tweet-id', tweet._id).append(header, content, footer);
-
 
     return article;
   }
@@ -80,6 +90,17 @@ $(document).ready( () => {
 
   loadTweets();
 
+  // handles toggling of new-tweet section
+  function toggleHanlder() {
+    $('#nav-bar .compose').on('click', function() {
+      $('section.new-tweet').slideToggle('fast', function() {
+        $(this).find('.input').focus();
+      });
+    });
+  }
+
+  toggleHanlder();
+
   function submitHandler() {
     const form = $('.new-tweet .tweet-form');
     const error = form.find('.error');
@@ -97,9 +118,9 @@ $(document).ready( () => {
        });
     }
 
-    // a couple of helper functions
-    // * there has got to be a better way to handle the errors
-    // * todo: maybe
+    // a couple of helper functions for the <textarea>'s errors
+    // * there has got to be a better way to handle this
+    // * todo: ^
     const errors = {
       exist:
         () => {
@@ -128,7 +149,7 @@ $(document).ready( () => {
         }
     };
 
-    // monitors <textarea> and displays errors accordingly
+    // monitors <textarea> for changes on input and displays errors accordingly
     $(input).on('input', () => {
       errors.monitor();
     });
@@ -140,7 +161,7 @@ $(document).ready( () => {
       }
     });
 
-    // ensures errors are displayed on click
+    // ensures errors are displayed on clicking form's button
     $(button).on('click', () => {
       errors.monitor();
     });
@@ -153,7 +174,7 @@ $(document).ready( () => {
       }
     });
 
-    // finally, POST if no errors
+    // finally, POST the thing like a normal person if there're no errors
     $(form).on('submit', event => {
       event.preventDefault();
       if(!errors.exist()) {
