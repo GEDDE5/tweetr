@@ -53,18 +53,17 @@ module.exports = function(DataHelpers) {
         console.log(err);
         res.status(500).json({ error: err.message });
       } else {
-        console.log(likeCount);
         res.json({ _id: req.params.id, likes: likeCount });
       }
     });
   });
 
   tweetsRoutes.post('/:id', function (req, res) {
-    DataHelpers.likeHandler(req.params.id, 'add', (err, afterIncrement) => {
+    DataHelpers.likeHandler(req.params.id, 'add', (err, likesAfterIncrement) => {
       if(err) {
         res.status(500).json({ error: err.message });
       } else {
-        res.json({ _id: req.params.id, likes: afterIncrement });
+        res.json({ _id: req.params.id, likes: likesAfterIncrement });
       }
     });
   });
