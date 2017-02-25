@@ -47,9 +47,26 @@ module.exports = function(DataHelpers) {
     });
   });
 
-  tweetsRoutes.get('/:id', function (req, res) {
-    // if user GETs /tweets/:id, display individual tweet w/ given id
-    res.status(299).send(req.params.id);
+  tweetsRoutes.get('/:id', function(req, res) {
+    DataHelpers.likeHandler(req.params.id, 'get', (err, likeCount) => {
+      if(err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+      } else {
+        console.log(likeCount);
+        res.json({ _id: req.params.id, likes: likeCount });
+      }
+    });
+  });
+
+  tweetsRoutes.post('/:id', function (req, res) {
+    DataHelpers.likeHandler(req.params.id, 'add', (err, afterIncrement) => {
+      if(err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.json({ _id: req.params.id, likes: afterIncrement });
+      }
+    });
   });
 
   return tweetsRoutes;
