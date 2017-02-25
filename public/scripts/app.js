@@ -25,8 +25,8 @@ $(document).ready( () => {
       let p = $('<p>').text(str);
       return p[0].innerHTML;
     }
-    // recursion for escaping whole tweet
-    // just in case
+    // some recursion for escaping whole tweet
+    // just in case \ for future personal reference
     function sanitize(obj) {
       for(let key in obj) {
         if(obj.hasOwnProperty(key)) {
@@ -168,7 +168,7 @@ $(document).ready( () => {
     $('.tweets').on('click', '.fa-heart', function() {
       const heart = $(this);
       // heart.hasClass('liked') ? heart.removeClass('liked') : heart.addClass('liked');
-      // the above is silly and doesn't work unless it's done as it's done below
+      // the above is less silly but doesn't work unless it's modified to be done as it's done below
       // ???
       if(heart.hasClass('liked')) {
         heart.removeClass('liked');
