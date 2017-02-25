@@ -8,6 +8,7 @@ const bodyParser    = require("body-parser");
 const app           = express();
 
 const {MongoClient} = require('mongodb');
+const {ObjectId}    = require('mongodb');
 const MONGODB_URI   = 'mongodb://localhost:27017/tweeter';
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,7 +22,7 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     throw err;
   }
   console.log(`Connected to ${MONGODB_URI}`);
-  app.use('/tweets', tweetsRoutes(DataHelpers(db)));
+  app.use('/tweets', tweetsRoutes(DataHelpers(db, ObjectId)));
   // db.close(); breaks the app; exclude it
 });
 
