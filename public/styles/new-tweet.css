@@ -13,12 +13,12 @@
   padding: 0.2em 0.5em 0 0;
 }
 
-.new-tweet h2 {
+.new-tweet .header {
   border-bottom: 1px solid black;
   margin: 0 0 10px 0;
 }
 
-.new-tweet input {
+.new-tweet .submit {
   float: left;
 }
 
@@ -30,7 +30,7 @@
   padding: 7px 0 0 10px;
 }
 
-.new-tweet textarea {
+.new-tweet .input {
   padding: 8px 4px 4px 8px;
   width: 100%;
 }
