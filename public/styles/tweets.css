@@ -1,10 +1,22 @@
 .clearfix:after {
+  clear: both;
   content: ".";
   display: block;
-  clear: both;
-  visibility: hidden;
   line-height: 0;
   height: 0;
+  visibility: hidden;
+}
+
+article.tweet {
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  margin-top: 1em;
+  opacity: 0.8;
+  text-align: left;
+}
+
+article.tweet:hover {
+  opacity: 1;
 }
 
 article.tweet .avatar {
@@ -20,9 +32,9 @@ article.tweet .body {
 }
 
 article.tweet .date {
+  float: left;
   margin: 0;
   padding: 0 0 0 5px;
-  float: left;
 }
 
 article.tweet .footer {
@@ -43,34 +55,22 @@ article.tweet .header {
 }
 
 article.tweet .icon {
-
-}
-
-article.tweet:hover .icon {
-  display: block;
-}
-
-article.tweet .icon {
   color: #00a087;
   display: none;
   float: right;
   padding: 2px 10px 0 0;
 }
 
-article.tweet .fa-heart:hover {
+article.tweet:hover .icon {
+  display: block;
+}
+
+article.tweet .fa-heart .liked {
   color: red;
 }
 
-article.tweet {
-  border: 1px solid #D3D3D3;
-  border-radius: 5px;
-  margin-top: 1em;
-  opacity: 0.8;
-  text-align: left;
-}
-
-article.tweet:hover {
-  opacity: 1;
+article.tweet .fa-heart:hover {
+  color: red;
 }
 
 article.tweet .user {
