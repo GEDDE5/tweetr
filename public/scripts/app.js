@@ -165,7 +165,7 @@ $(document).ready( () => {
   function likeHandler() {
     $('.tweets').on('click', '.fa-heart', function(event) {
       let tweetID = $(this).closest('.tweet').data('tweet-id');
-      $.post('tweets/' + tweetID);
+      //$.post('tweets/' + tweetID);
     });
   }
   likeHandler();
