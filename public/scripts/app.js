@@ -98,6 +98,8 @@ $(document).ready( () => {
     }
 
     // a couple of helper functions
+    // * there has got to be a better way to handle the errors
+    // * todo: maybe
     const errors = {
       exist:
         () => {
@@ -131,11 +133,16 @@ $(document).ready( () => {
       errors.monitor();
     });
 
-    // Disallows <enter> key from default behaviour
+    // disallows <enter> key from default behaviour
     $(input).on('keypress', event => {
       if(event.key === 'Enter') {
         event.preventDefault();
       }
+    });
+
+    // ensures errors are displayed on click
+    $(button).on('click', () => {
+      errors.monitor();
     });
 
     // submits form if user presses <enter> while in <textarea>
@@ -146,24 +153,19 @@ $(document).ready( () => {
       }
     });
 
-    // ensures errors are displayed on click
-    $(button).on('click', () => {
-      errors.monitor();
-    });
-
-    // self-explanatory
+    // finally, POST if no errors
     $(form).on('submit', event => {
       event.preventDefault();
       if(!errors.exist()) {
         postForm('tweets', '.tweets');
       }
     });
-
   }
+
   submitHandler();
 
   function likeHandler() {
-    $('.tweets').on('click', '.fa-heart', function(event) {
+    $('.tweets').on('click', '.fa-heart', function() {
       const heart = $(this);
       // heart.hasClass('liked') ? heart.removeClass('liked') : heart.addClass('liked');
       // the above is silly and doesn't work unless it's done as it's done below
@@ -185,6 +187,7 @@ $(document).ready( () => {
        });
     });
   }
+
   likeHandler();
 
 });
