@@ -50,7 +50,7 @@ $(document).ready( () => {
     let content = $('<p>').addClass('body').text(tweet.content.text);
 
     let date = $('<p>').addClass('date').text(createdAt);
-    let iHeart = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'false');
+    let iHeart = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true');
     let iFlag = $('<i>').addClass('fa fa-flag icon').attr('aria-hidden', 'true');
     let iRetweet = $('<i>').addClass('fa fa-retweet icon').attr('aria-hidden', 'true');
     let footer = $('<footer>').addClass('footer clearfix').append(date, iHeart, iFlag, iRetweet);
@@ -164,8 +164,25 @@ $(document).ready( () => {
 
   function likeHandler() {
     $('.tweets').on('click', '.fa-heart', function(event) {
-      let tweetID = $(this).closest('.tweet').data('tweet-id');
-      //$.post('tweets/' + tweetID);
+      const heart = $(this);
+      // heart.hasClass('liked') ? heart.removeClass('liked') : heart.addClass('liked');
+      // the above is silly and doesn't work unless it's done as it's done below
+      // ???
+      if(heart.hasClass('liked')) {
+        heart.removeClass('liked');
+        heart.css('color', '');
+      } else {
+        heart.addClass('liked');
+        heart.css('color', 'red');
+      }
+      let tweetID = heart.closest('.tweet').data('tweet-id');
+      $.post('tweets/' + tweetID)
+       .then(function(err, res) {
+         if(err) {
+           console.log(err);
+         }
+         console.log(res);
+       });
     });
   }
   likeHandler();
