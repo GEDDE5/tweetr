@@ -5,23 +5,23 @@ function timeSince(date) {
   let interval = Math.floor(seconds / 31536000);
 
   if (interval > 1) {
-    return `${interval} years ago`;
+    return `${interval} year(s) ago`;
   }
   interval = Math.floor(seconds / 2592000);
   if (interval > 1) {
-    return `${interval} months ago`;
+    return `${interval} month(s) ago`;
   }
   interval = Math.floor(seconds / 86400);
   if (interval > 1) {
-    return `${interval} days ago`;
+    return `${interval} day(s) ago`;
   }
   interval = Math.floor(seconds / 3600);
   if (interval > 1) {
-    return `${interval} hours ago`;
+    return `${interval} hour(s) ago`;
   }
   interval = Math.floor(seconds / 60);
   if (interval > 1) {
-    return `${interval} minutes ago`;
+    return `${interval} minute(s) ago`;
   }
   return `${Math.floor(seconds)} seconds ago`;
 }
@@ -91,7 +91,7 @@ $(document).ready(function() {
   loadTweets();
 
   // handles toggling of new-tweet section
-  function toggleHanlder() {
+  function toggleHandler() {
     $('#nav-bar .compose').on('click', function() {
       $('section.new-tweet').slideToggle('fast', function() {
         $(this).find('.input').focus();
@@ -99,7 +99,7 @@ $(document).ready(function() {
     });
   }
 
-  toggleHanlder();
+  toggleHandler();
 
   function submitHandler() {
     const form = $('.new-tweet .tweet-form');
