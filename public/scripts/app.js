@@ -120,9 +120,10 @@ $(document).ready(function() {
        });
     }
 
-    // a couple of helper functions for the <textarea>'s errors
-    // * there has got to be a better way to handle this
-    // * todo: ^
+    // this handles all of the <textarea>'s errors
+    // note: doing this was a good learning lesson re scope and how .js handles its order of operations
+    // ie. the bool conditions for each type of error would not be up to date if they weren't explicitly
+    // told to(via wrapping them in a function)
     const errorTypes = {
       empty: {
         conditions:
