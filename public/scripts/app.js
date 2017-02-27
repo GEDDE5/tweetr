@@ -123,10 +123,17 @@ $(document).ready(function() {
     // this handles all of the form's errors
     // note to self: doing this was a learning lesson re scope and how .js handles its order of operations
     // ie. the bool conditions for each type of error would not be up to date if they weren't explicitly
-    // told to go (via wrapping them in a function) and recheck the logic now that the input box's updated.
-    // this's because they don't directly observe (or aren't privy to) the on.('event') narrative; i'm
-    // curoius if there's a way to optimize this so it's not using a sort-of workaround (a closure?... but
-    // input is the variable of interest and it's already w/in scope, meaning that doesn't make senes either).
+    // told to go (via returning them in a function) and recheck the logic now that the input box's updated.
+    //
+    //      eg. 1) this does not work (returns undefined, or else behaves badly):
+    //            conditions: [<input> conditions];
+    //          2) but this does:
+    //            conditions: () => { return [<input> conditions]; }
+    //
+    // this's because the conditions in 1) don't observe (or aren't privy to) the on.('event') narrative; in
+    // other words, the logic isn't triggered when the listener is triggered; it's triggered before (i think).
+    // i'm curoius if there's a way to optimize this, or if people are going about this in a different way, or
+    // whether this is "kinda it".
     const errorTypes = {
       empty: {
         conditions:
