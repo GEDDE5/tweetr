@@ -110,7 +110,7 @@ $(document).ready(function() {
     const button = form.find('input[type="Submit"]');
     const counter = form.find('.counter');
 
-    // posts to /tweets, displays tweet on success
+    // posts to /tweets; creates & displays tweet element on success
     function postTweet() {
       $.post('tweets', form.serialize())
        .then(function(tweet) {
@@ -170,18 +170,13 @@ $(document).ready(function() {
 
     // submits form if user presses <enter> while in <textarea>
     $(input).on('keydown', event => {
-      if(!errors.exist() && event.key === 'Enter') {
-        event.preventDefault();
-        postTweet();
-      }
+      errors.exist() || event.key !== 'Enter' || postTweet();
     });
 
     // finally, POST the form like a normal person if there're no errors
     $(form).on('submit', event => {
       event.preventDefault();
-      if(!errors.exist()) {
-        postTweet();
-      }
+      errors.exist() || postTweet();
     });
   }
 
