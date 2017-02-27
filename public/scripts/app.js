@@ -123,31 +123,39 @@ $(document).ready(function() {
     // a couple of helper functions for the <textarea>'s errors
     // * there has got to be a better way to handle this
     // * todo: ^
+    const errorTypes = {
+      empty: {
+        conditions:
+          () => {
+            return [ input.val() === '', input.val() === null];
+          },
+        message: 'Error: Input cannot be empty'
+      },
+      exceeds: {
+        conditions:
+          () => {
+            return [140 - input.val().length < 0];
+          },
+        message: 'Error: Input exceeds 140 characters'
+      }
+    };
     const errors = {
-      exist:
+      show:
         () => {
-          conditions = [
-            input.val() === null,
-            140 - input.val().length < 0,
-            $.trim(input.val()) === ''
-          ];
-          for(c of conditions){
-            if(c) {
-              return true;
+          for(type in errorTypes) {
+            error.text('');
+            for(let c of errorTypes[type].conditions()){
+              if(c) {
+                error.text(errorTypes[type].message);
+                return true;
+              }
             }
           }
           return false;
         },
-      monitor:
+      hide:
         () => {
           error.text('');
-          if(input.val() === '' || input.val() === null) {
-            error.text('Error: Input cannot be empty');
-          }
-          if(140 - input.val().length < 0) {
-            error.text('Error: Input exceeds 140 characters');
-          }
-          return;
         }
     };
 
@@ -156,25 +164,29 @@ $(document).ready(function() {
       event.key !== 'Enter' || event.preventDefault();
     });
 
+    $(input).on('blur', () => {
+      errors.hide();
+    });
+
     // monitors <textarea> for changes on input and displays errors accordingly
     $(input).on('input', () => {
-      errors.monitor();
+      errors.show();
     });
 
     // ensures errors are displayed on clicking form's button
     $(button).on('click', () => {
-      errors.monitor();
+      errors.show();
     });
 
     // submits form if user presses <enter> while in <textarea>
     $(input).on('keydown', event => {
-      errors.exist() || event.key !== 'Enter' || postTweet();
+      errors.show() || event.key !== 'Enter' || postTweet();
     });
 
     // finally, POST the form like a normal person if there're no errors
     $(form).on('submit', event => {
       event.preventDefault();
-      errors.exist() || postTweet();
+      errors.show() || postTweet();
     });
   }
 
