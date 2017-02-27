@@ -107,7 +107,7 @@ $(document).ready(function() {
     const form = $('.new-tweet .tweet-form');
     const error = form.find('.error');
     const input = form.find('.input');
-    const button = form.find('input[type="Submit"]');
+    const button = form.find('.submit');
     const counter = form.find('.counter');
 
     // posts to /tweets; creates & displays tweet element on success
@@ -125,7 +125,8 @@ $(document).ready(function() {
     // ie. the bool conditions for each type of error would not be up to date if they weren't explicitly
     // told to go (via wrapping them in a function) and recheck the logic now that the input box's updated.
     // this's because they don't directly observe (or aren't privy to) the on.('event') narrative; i'm
-    // curoius if there's a way to optimize this (a closure?...) so it's not using a sort-of workaround.
+    // curoius if there's a way to optimize this so it's not using a sort-of workaround (a closure?... but
+    // input is the variable of interest and it's already w/in scope, meaning that doesn't make senes either).
     const errorTypes = {
       empty: {
         conditions:
