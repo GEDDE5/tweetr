@@ -23,7 +23,7 @@ function timeSince(date) {
   if (interval >= 1) {
     return `${interval} minute(s) ago`;
   }
-  return `${Math.floor(seconds+1)} second(s) ago`;
+  return `${Math.floor(seconds + 1)} second(s) ago`;
 }
 
 $(document).ready(function() {
@@ -153,9 +153,7 @@ $(document).ready(function() {
 
     // disallows <enter> key from default behaviour
     $(input).on('keypress', event => {
-      if(event.key === 'Enter') {
-        event.preventDefault();
-      }
+      event.key !== 'Enter' || event.preventDefault();
     });
 
     // monitors <textarea> for changes on input and displays errors accordingly
