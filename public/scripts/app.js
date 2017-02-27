@@ -109,10 +109,10 @@ $(document).ready(function() {
     const counter = form.find('.counter');
 
     // posts to /tweets, displays tweet on success
-    function postForm(route, selector) {
-      $.post(route, form.serialize())
+    function postTweet() {
+      $.post('tweets', form.serialize())
        .then(function(tweet) {
-         $(selector).prepend(createTweetElement(tweet));
+         $('.tweets').prepend(createTweetElement(tweet));
          input.val('').focus();
          counter.text(140);
        });
@@ -170,7 +170,7 @@ $(document).ready(function() {
     $(input).on('keydown', event => {
       if(!errors.exist() && event.key === 'Enter') {
         event.preventDefault();
-        postForm('tweets', '.tweets');
+        postTweet();
       }
     });
 
@@ -178,7 +178,7 @@ $(document).ready(function() {
     $(form).on('submit', event => {
       event.preventDefault();
       if(!errors.exist()) {
-        postForm('tweets', '.tweets');
+        postTweet();
       }
     });
   }
