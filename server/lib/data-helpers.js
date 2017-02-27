@@ -16,6 +16,7 @@ module.exports = function makeDataHelpers(db, ObjectId) {
       db.collection('tweets').find().sort('createdAt', -1).toArray(callback);
     },
 
+    // Accomplishes R and U of CRUD for liking feature
     likeHandler: function(tweetID, method, callback) {
       db.collection('tweets').find( { _id: new ObjectId(tweetID) } ).toArray((err, res) => {
         if(err) {
