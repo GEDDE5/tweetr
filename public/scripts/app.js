@@ -120,10 +120,12 @@ $(document).ready(function() {
        });
     }
 
-    // this handles all of the <textarea>'s errors
-    // note: doing this was a good learning lesson re scope and how .js handles its order of operations
+    // this handles all of the form's errors
+    // note to self: doing this was a learning lesson re scope and how .js handles its order of operations
     // ie. the bool conditions for each type of error would not be up to date if they weren't explicitly
-    // told to (via wrapping them in a function)
+    // told to go (via wrapping them in a function) and recheck the logic now that the input box's updated.
+    // this's because they don't directly observe (or aren't privy to) the on.('event') narrative; i'm
+    // curoius if there's a way to optimize this (a closure?...) so it's not using a sort-of workaround.
     const errorTypes = {
       empty: {
         conditions:
