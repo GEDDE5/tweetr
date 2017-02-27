@@ -37,7 +37,7 @@ $(document).ready(function() {
     //   return p[0].innerHTML;
     // }
     // some recursion for escaping whole tweet
-    // just in case \ for future personal reference
+    // just in case / for future personal reference
     // function sanitize(obj) {
     //   for(let key in obj) {
     //     if(obj.hasOwnProperty(key)) {
@@ -56,7 +56,8 @@ $(document).ready(function() {
     let avatar = $('<img>').addClass('avatar').attr('src', tweet.user.avatars.small);
     let user = $('<h1>').addClass('user').text(tweet.user.name);
     let handle = $('<p>').addClass('handle').text(tweet.user.handle);
-    let header = $('<header>').addClass('header').append(avatar, user, handle);
+    let header = $('<header>').addClass('header')
+                              .append(avatar, user, handle);
 
     let content = $('<p>').addClass('body').text(tweet.content.text);
 
@@ -64,10 +65,11 @@ $(document).ready(function() {
     let iHeart = $('<i>').addClass('fa fa-heart icon').attr('aria-hidden', 'true');
     let iFlag = $('<i>').addClass('fa fa-flag icon').attr('aria-hidden', 'true');
     let iRetweet = $('<i>').addClass('fa fa-retweet icon').attr('aria-hidden', 'true');
-    let footer = $('<footer>').addClass('footer clearfix').append(date, iHeart, iFlag, iRetweet);
+    let footer = $('<footer>').addClass('footer clearfix')
+                              .append(date, iHeart, iFlag, iRetweet);
 
-    let article = $('<article>').addClass('tweet').attr('data-tweet-id', tweet._id).append(header, content, footer);
-
+    let article = $('<article>').addClass('tweet').attr('data-tweet-id', tweet._id)
+                                .append(header, content, footer);
     return article;
   }
 
