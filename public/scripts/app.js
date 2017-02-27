@@ -23,7 +23,7 @@ function timeSince(date) {
   if (interval >= 1) {
     return `${interval} minute(s) ago`;
   }
-  return `${Math.floor(seconds)} second(s) ago`;
+  return `${Math.floor(seconds+1)} second(s) ago`;
 }
 
 $(document).ready(function() {
