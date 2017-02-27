@@ -4,26 +4,26 @@ function timeSince(date) {
 
   let interval = Math.floor(seconds / 31536000);
 
-  if (interval > 1) {
+  if (interval >= 1) {
     return `${interval} year(s) ago`;
   }
   interval = Math.floor(seconds / 2592000);
-  if (interval > 1) {
+  if (interval >= 1) {
     return `${interval} month(s) ago`;
   }
   interval = Math.floor(seconds / 86400);
-  if (interval > 1) {
+  if (interval >= 1) {
     return `${interval} day(s) ago`;
   }
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) {
+  if (interval >= 1) {
     return `${interval} hour(s) ago`;
   }
   interval = Math.floor(seconds / 60);
-  if (interval > 1) {
+  if (interval >= 1) {
     return `${interval} minute(s) ago`;
   }
-  return `${Math.floor(seconds)} seconds ago`;
+  return `${Math.floor(seconds)} second(s) ago`;
 }
 
 $(document).ready(function() {
@@ -149,16 +149,16 @@ $(document).ready(function() {
         }
     };
 
-    // monitors <textarea> for changes on input and displays errors accordingly
-    $(input).on('input', () => {
-      errors.monitor();
-    });
-
     // disallows <enter> key from default behaviour
     $(input).on('keypress', event => {
       if(event.key === 'Enter') {
         event.preventDefault();
       }
+    });
+
+    // monitors <textarea> for changes on input and displays errors accordingly
+    $(input).on('input', () => {
+      errors.monitor();
     });
 
     // ensures errors are displayed on clicking form's button
@@ -174,7 +174,7 @@ $(document).ready(function() {
       }
     });
 
-    // finally, POST the thing like a normal person if there're no errors
+    // finally, POST the form like a normal person if there're no errors
     $(form).on('submit', event => {
       event.preventDefault();
       if(!errors.exist()) {
@@ -191,13 +191,13 @@ $(document).ready(function() {
       // heart.hasClass('liked') ? heart.removeClass('liked') : heart.addClass('liked');
       // the above is less silly but doesn't work unless it's modified to be done as it's done below
       // ???
-      if(heart.hasClass('liked')) {
-        heart.removeClass('liked');
-        heart.css('color', '');
-      } else {
-        heart.addClass('liked');
-        heart.css('color', 'red');
-      }
+      // if(heart.hasClass('liked')) {
+      //   heart.removeClass('liked');
+      //   heart.css('color', '');
+      // } else {
+      //   heart.addClass('liked');
+      //   heart.css('color', 'red');
+      // }
       let tweetID = heart.closest('.tweet').data('tweet-id');
       $.post('tweets/' + tweetID)
        .then(function(err, res) {
