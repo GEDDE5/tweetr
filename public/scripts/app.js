@@ -123,12 +123,12 @@ $(document).ready(function() {
     // this handles all of the <textarea>'s errors
     // note: doing this was a good learning lesson re scope and how .js handles its order of operations
     // ie. the bool conditions for each type of error would not be up to date if they weren't explicitly
-    // told to(via wrapping them in a function)
+    // told to (via wrapping them in a function)
     const errorTypes = {
       empty: {
         conditions:
           () => {
-            return [ input.val() === '', input.val() === null];
+            return [input.val().trim() === '', input.val() === null];
           },
         message: 'Error: Input cannot be empty'
       },
@@ -143,8 +143,8 @@ $(document).ready(function() {
     const errors = {
       show:
         () => {
+          error.text('');
           for(type in errorTypes) {
-            error.text('');
             for(let c of errorTypes[type].conditions()){
               if(c) {
                 error.text(errorTypes[type].message);
